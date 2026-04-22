@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Mini Accessories · Pink Collection</title>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #fff5f8;
+      font-family: 'Quicksand', sans-serif;
+      color: #4a2c3a;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    /* PINK THEME VARIABLES */
+    :root {
+      --pink-soft: #ffb7c5;
+      --pink-main: #ff80a5;
+      --pink-deep: #e85d8f;
+      --pink-dark: #b13e66;
+      --pink-bg-light: #fff0f3;
+      --pink-shadow: rgba(255, 128, 165, 0.25);
+      --gold-accent: #ffb347;
+      --text-dark: #4a2c3a;
+      --text-muted-pink: #b2848f;
+    }
+    /* GLOBAL */
+    .navbar {
+      background: #ffffffdd;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(255, 128, 165, 0.1);
+      border-bottom: 1px solid var(--pink-soft);
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--pink-deep), var(--pink-main));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .navbar-brand i {
+      background: none;
+      -webkit-background-clip: unset;
+      color: var(--pink-deep);
+      font-size: 1.8rem;
+      margin-right: 6px;
+    }
+    .cart-btn-pink {
+      background: var(--pink-main);
+      border: none;
+      border-radius: 60px;
+      padding: 8px 24px;
+      font-weight: 600;
+      color: white;
+      transition: 0.2s;
+      box-shadow: 0 4px 8px var(--pink-shadow);
+    }
+    .cart-btn-pink:hover {
+      background: var(--pink-deep);
+      transform: translateY(-2px);
+    }
+    .cart-count {
+      background: #ff4d6d;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -6px;
+      right: -8px;
+    }
+    .hero-pink {
+      background: linear-gradient(145deg, #ffe4ec, #ffd9e4);
+      padding: 48px 0 36px;
+      text-align: center;
+      border-bottom: 2px solid var(--pink-soft);
+    }
+    .hero-pink h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      color: var(--pink-dark);
+      text-shadow: 2px 2px 12px rgba(255,128,165,0.2);
+    }
+    .hero-pink p {
+      color: var(--text-muted-pink);
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--pink-deep);
+      border-left: 5px solid var(--pink-main);
+      padding-left: 16px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.03);
+      border: 1px solid #ffe2ec;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px var(--pink-shadow);
+      border-color: var(--pink-main);
+    }
+    .product-img-wrap {
+      background: #fef1f5;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.05);
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--pink-deep);
+      color: white;
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+    .product-name {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #3d2a35;
+    }
+    .product-desc {
+      font-size: 0.75rem;
+      color: #a37483;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+    }
+    .btn-detail-pink {
+      background: #fdeff3;
+      border: none;
+      border-radius: 40px;
+      color: var(--pink-dark);
+      font-size: 0.75rem;
+      padding: 6px 0;
+    }
+    .btn-add-pink {
+      background: var(--pink-main);
+      border: none;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: 0.2s;
+    }
+    .btn-add-pink:hover {
+      background: var(--pink-deep);
+      color: white;
+    }
+    /* cart sidebar pink */
+    .cart-sidebar-pink {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 400px;
+      background: #fff9fb;
+      border-left: 2px solid var(--pink-soft);
+      z-index: 2000;
+      transform: translateX(110%);
+      transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+    }
+    .cart-sidebar-pink.open {
+      transform: translateX(0);
+    }
+    .cart-overlay-pink {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(3px);
+      z-index: 1999;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+    }
+    .cart-overlay-pink.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .cart-header-pink {
+      padding: 20px 24px;
+      border-bottom: 1px solid #ffd9e4;
+    }
+    .cart-header-pink h4 {
+      color: var(--pink-deep);
+      font-weight: 800;
+    }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 1px solid #ffe2ec;
+      padding: 12px 0;
+    }
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #f7e4ea;
+    }
+    .cart-item-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .ci-qty-control {
+      background: #f5e6ec;
+      border-radius: 40px;
+      padding: 2px 10px;
+    }
+    .checkout-btn-pink {
+      background: var(--pink-deep);
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 60px;
+      font-weight: 700;
+      color: white;
+    }
+    /* modals pink */
+    .modal-content-pink {
+      background: #fffafc;
+      border-radius: 32px;
+      border: 1px solid var(--pink-soft);
+    }
+    .form-control-pink {
+      background: #fff0f4;
+      border: 1px solid #ffc0d0;
+      border-radius: 50px;
+      padding: 10px 16px;
+    }
+    .qr-box-pink {
+      background: white;
+      border-radius: 28px;
+      padding: 12px;
+      display: inline-block;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+    }
+    .upload-payment-pink {
+      border: 2px dashed var(--pink-main);
+      border-radius: 24px;
+      background: #fff4f7;
+      transition: 0.2s;
+    }
+    .btn-gold-pink {
+      background: var(--pink-main);
+      color: white;
+      border-radius: 60px;
+      font-weight: 700;
+    }
+    .receipt-pink {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 24px;
+      border: 1px solid var(--pink-soft);
+    }
+    /* FOOTER STYLES */
+    .footer-pink {
+      background: linear-gradient(135deg, #2d1f28, #1f151c);
+      color: #e8d5e0;
+      margin-top: auto;
+      border-top: 3px solid var(--pink-main);
+    }
+    .footer-pink a {
+      color: var(--pink-soft);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .footer-pink a:hover {
+      color: var(--pink-main);
+      text-decoration: underline;
+    }
+    .footer-pink .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: rgba(255,128,165,0.15);
+      border-radius: 50%;
+      transition: 0.3s;
+      margin: 0 6px;
+    }
+    .footer-pink .social-icon:hover {
+      background: var(--pink-main);
+      transform: translateY(-3px);
+    }
+    .footer-pink .social-icon:hover i {
+      color: white;
+    }
+    @media (max-width: 576px) {
+      .cart-sidebar-pink { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR PINK LOGO MINI ACCESSORIES -->
+<nav class="navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-crown"></i> MINI<span style="color: var(--pink-dark);"> accessories</span>
+    </a>
+    <button class="cart-btn-pink position-relative" onclick="toggleCartSidebar()">
+      <i class="fas fa-heart me-1"></i> Cart
+      <span class="cart-count" id="globalCartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO PINK -->
+<section class="hero-pink" style="margin-top: 76px;">
+  <div class="container">
+    <h1>🌸 Mini Accessories 🌸</h1>
+    <p class="lead">chic · delicate · everyday charm</p>
+    <div class="mt-3">
+      <span class="badge bg-white text-pink px-3 py-2 rounded-pill shadow-sm" style="color:#e85d8f;">✨ Free Shipping ✨</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS GRID (images from /images folder) -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <h2 class="section-title">Our Pink Collection</h2>
+      <span class="badge rounded-pill px-3 py-2" style="background:#ffe0e8; color:#b54a6f;"><i class="fas fa-tag me-1"></i><span id="productCountSpan">0</span> treasures</span>
+    </div>
+    <div class="row g-4" id="productGridContainer"></div>
+  </div>
+</section>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay-pink" id="cartOverlayPink" onclick="toggleCartSidebar()"></div>
+<div class="cart-sidebar-pink" id="cartSidebarPink">
+  <div class="cart-header-pink d-flex justify-content-between align-items-center">
+    <h4><i class="fas fa-shopping-bag me-2"></i>Your bag</h4>
+    <button class="btn-close" style="background: transparent;" onclick="toggleCartSidebar()"></button>
+  </div>
+  <div class="flex-grow-1 overflow-auto px-4" id="cartItemsList"></div>
+  <div class="p-4 border-top" id="cartFooterSection" style="border-color:#ffd9e4 !important;">
+    <div class="d-flex justify-content-between mb-2">
+      <span>Subtotal</span><span id="cartSubtotalVal">$0.00</span>
+    </div>
+    <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
+      <span style="color:var(--pink-deep);">Total</span><span id="cartTotalVal">$0.00</span>
+    </div>
+    <button class="checkout-btn-pink w-100" onclick="openCheckoutModal()">
+      <i class="fas fa-lock me-2"></i>Checkout → 
+    </button>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal fade" id="productDetailModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="background:#fffafc; border-radius: 32px;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" style="color:#e85d8f;">✨ Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-4">
+          <div class="col-md-5"><img id="detailImg" class="img-fluid rounded-4" style="width:100%; object-fit:cover;"></div>
+          <div class="col-md-7">
+            <span class="badge bg-pink mb-2" id="detailBadgeSpan" style="background:#ff99b4;"></span>
+            <h3 id="detailName" class="fw-bold" style="color:#3d2a35;"></h3>
+            <h2 class="display-6 fw-bold" id="detailPrice" style="color:var(--pink-deep);"></h2>
+            <p id="detailDesc" class="text-muted mt-2"></p>
+            <div class="d-flex align-items-center gap-3 my-3">
+              <span>Qty:</span>
+              <div class="d-flex align-items-center gap-3 bg-white rounded-pill px-3 py-1 shadow-sm">
+                <button class="border-0 bg-transparent" onclick="changeDetailQty(-1)">−</button>
+                <span id="detailQtyNum" class="fw-bold">1</span>
+                <button class="border-0 bg-transparent" onclick="changeDetailQty(1)">+</button>
+              </div>
+            </div>
+            <button class="btn w-100 py-2 rounded-pill fw-bold" style="background:#ff80a5; color:white;" onclick="addFromDetailToCart()">Add to Cart 🛍️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL (3 steps) -->
+<div class="modal fade" id="checkoutMainModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="background:#fffbfd; border-radius: 40px;">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title" style="color: #e85d8f;"><i class="fas fa-lock me-2"></i>Pink Checkout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="resetCheckoutToStep1()"></button>
+      </div>
+      <div class="modal-body p-4">
+        <!-- steps indicator -->
+        <div class="d-flex justify-content-around mb-4 position-relative">
+          <div class="text-center" id="step1Badge"><div class="rounded-circle bg-pink text-white mx-auto mb-1" style="width:34px; line-height:34px;">1</div><small>Details</small></div>
+          <div class="text-center" id="step2Badge"><div class="rounded-circle bg-light text-dark mx-auto mb-1" style="width:34px; line-height:34px;">2</div><small>Pay/QR</small></div>
+          <div class="text-center" id="step3Badge"><div class="rounded-circle bg-light text-dark mx-auto mb-1" style="width:34px; line-height:34px;">3</div><small>Receipt</small></div>
+        </div>
+        
+        <!-- STEP 1: details + summary with table format -->
+        <div id="checkoutStep1Panel">
+          <div class="bg-white rounded-4 p-3 mb-3 shadow-sm">
+            <h6 class="fw-bold">🛍️ Order Summary</h6>
+            <div class="table-responsive">
+              <table class="table table-sm" style="font-size: 0.8rem;">
+                <thead class="table-light">
+                  <tr>
+                    <th>No.</th>
+                    <th>Item Name</th>
+                    <th>QTY</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody id="checkoutOrderItemsList"></tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-between mt-2 pt-2 border-top">
+              <span class="fw-bold">SUBTOTAL:</span>
+              <span id="checkoutSubtotalSpan">$0.00</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Delivery:</span>
+              <span class="text-muted">FREE</span>
+            </div>
+            <div class="d-flex justify-content-between mt-2 fw-bold fs-5" style="color: var(--pink-deep);">
+              <span>✅ GRAND TOTAL:</span>
+              <span id="checkoutTotalSpan">$0.00</span>
+            </div>
+          </div>
+          
+          <div class="mt-3">
+            <label class="form-label">Full name *</label>
+            <input class="form-control rounded-pill" id="custFullname" placeholder="Sophea M.">
+            <label class="form-label mt-2">Phone *</label>
+            <input class="form-control rounded-pill" id="custPhoneNum" placeholder="+855 12 345 678">
+            <label class="form-label mt-2">Address *</label>
+            <textarea class="form-control rounded-3" id="custAddressField" rows="2" placeholder="Street, City"></textarea>
+            <label class="form-label mt-2">Email (optional)</label>
+            <input class="form-control rounded-pill" id="custEmailField" placeholder="hello@mini.com">
+            <label class="form-label mt-2">Note</label>
+            <input class="form-control rounded-pill" id="custNoteField" placeholder="Gift wrap?">
+          </div>
+          
+          <button class="btn w-100 mt-4 rounded-pill fw-bold" style="background:var(--pink-main); color:white;" onclick="goToPaymentStep()">
+            Continue to Payment →
+          </button>
+        </div>
+        
+        <!-- STEP 2: QR + upload screenshot -->
+        <div id="checkoutStep2Panel" style="display:none;">
+          <div class="text-center mb-3">
+            <div class="qr-box-pink mb-2">
+              <img id="qrCodeDynamic" src="images/qr.png" alt="QR Payment" style="width:180px; height:180px; object-fit:contain;" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MiniAccessoriesPayment'">
+            </div>
+            <p class="fw-bold">Amount: <span id="qrAmountSpan" class="text-pink">$0.00</span></p>
+            <div class="upload-payment-pink p-3 rounded-4 mt-2 position-relative">
+              <input type="file" id="paymentScreenshotInput" accept="image/*" class="position-absolute top-0 start-0 w-100 h-100 opacity-0" onchange="previewPaymentImage(this)">
+              <i class="fas fa-cloud-upload-alt fa-2x" style="color:#e85d8f;"></i>
+              <p class="mb-0 small">Upload payment screenshot</p>
+              <img id="screenshotPreviewImg" class="img-fluid mt-2 rounded-3" style="max-height:120px; display:none;">
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-outline-secondary rounded-pill" onclick="backToStep1()">Back</button>
+            <button class="btn flex-fill rounded-pill fw-bold" id="confirmOrderBtn" style="background:var(--pink-deep); color:white;" onclick="finalizeOrderAndSendToTelegram()">Confirm Order 💖</button>
+          </div>
+        </div>
+        
+        <!-- STEP 3: Receipt + thank you -->
+        <div id="checkoutStep3Panel" style="display:none;">
+          <div class="receipt-pink text-center">
+            <i class="fas fa-check-circle fa-4x" style="color:#2ecc71;"></i>
+            <h4 class="mt-2">Order placed! 🎀</h4>
+            <div id="receiptHtmlContent" class="text-start mt-3 small"></div>
+            <button class="btn btn-sm rounded-pill mt-3" style="background:#ffb7c5;" onclick="finishCheckoutAndClearCart()">✨ Continue Shopping ✨</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER SECTION ========== -->
+<footer class="footer-pink mt-5 pt-4 pb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3 text-center text-md-start">
+        <h5 class="mb-3" style="color: var(--pink-main);">
+          <i class="fas fa-crown me-2"></i>MINI accessories
+        </h5>
+        <p style="font-size: 0.85rem;">Chic, delicate, and everyday charm — crafted for those who love soft elegance.</p>
+        <div class="mt-3">
+          <span class="badge bg-white text-dark px-3 py-2 rounded-pill" style="background: var(--pink-soft); color: #4a2c3a !important;">
+            <i class="fas fa-gem me-1"></i> 100% Authentic
+          </span>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3 text-center">
+        <h6 class="mb-3" style="color: var(--pink-main);">Quick Links</h6>
+        <ul class="list-unstyled" style="font-size: 0.85rem;">
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-pink"><i class="fas fa-home me-2"></i>Home</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-shopping-bag me-2"></i>Shop All</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-truck me-2"></i>Shipping Info</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-undo-alt me-2"></i>Return Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-md-4 mb-3 text-center text-md-end">
+        <h6 class="mb-3" style="color: var(--pink-main);">Contact Us</h6>
+        <p style="font-size: 0.85rem;" class="mb-2">
+          <i class="fab fa-telegram me-2"></i> 
+          <a href="https://t.me/miniaccessries" target="_blank" style="color: var(--pink-soft);">Join our Telegram</a>
+        </p>
+        <p style="font-size: 0.85rem;" class="mb-2">
+          <i class="fas fa-envelope me-2"></i> mini@accessories.com
+        </p>
+        <p style="font-size: 0.85rem;" class="mb-3">
+          <i class="fas fa-phone-alt me-2"></i> +855 61 937 991
+        </p>
+        <div class="d-flex justify-content-center justify-content-md-end gap-2">
+          <a href="https://www.facebook.com/miniaccessories123" class="social-icon"><i class="fab fa-facebook-f text-white"></i></a>
+          <a href="https://www.instagram.com/miniaccessories123/" class="social-icon"><i class="fab fa-instagram text-white"></i></a>
+          <a href="https://t.me/miniaccessries" class="social-icon"><i class="fab fa-telegram-plane text-white"></i></a>
+          <a href="https://www.tiktok.com/@miniaccessories123" class="social-icon"><i class="fab fa-tiktok text-white"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <hr class="my-3" style="border-color: rgba(255,128,165,0.2);">
+    
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        <p class="mb-0" style="font-size: 0.75rem;">&copy; 2025 MINI Accessories — All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+        <div class="d-flex justify-content-center justify-content-md-end gap-3">
+          <span style="font-size: 0.7rem;"><i class="fas fa-credit-card me-1"></i> Secure Payment</span>
+          <span style="font-size: 0.7rem;"><i class="fas fa-truck me-1"></i> Free Delivery</span>
+          <span style="font-size: 0.7rem;"><i class="fas fa-shield-alt me-1"></i> Buyer Protection</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-3">
+      <span style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">
+        ✨ Thank you for shopping at MINI Accessories — where every detail matters ✨
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ======================== TELEGRAM CONFIG (YOUR TOKEN + CHAT ID) =====================
+  const TELEGRAM_BOT_TOKEN = "8453210535:AAFXMrYAhBhij5qZ6STMirBZNeCsLD50jpQ";
+  const TELEGRAM_CHAT_ID   = "6444898588";
+  const SHOP_NAME = "Mini accessories 💖";
+  
+  // ======================== PRODUCTS (images from /images folder) =====================
+  const PRODUCTS = [
+    { name: "Pink Pearl Bracelet", price: 12.99, badge: "🌸 Trend", desc: "Delicate freshwater pearl with rose gold clasp.", image: "images/bracelet.jpg" },
+    { name: "Mini Heart Earrings", price: 9.99, badge: "💕 New", desc: "Heart-shaped cubic zirconia, hypoallergenic.", image: "images/earrings.jpg" },
+    { name: "Silk Scarf Pink", price: 18.50, badge: "Luxury", desc: "100% mulberry silk, hand-rolled edges.", image: "images/scarf.jpg" },
+    { name: "Compact Mirror", price: 7.99, badge: "Cute", desc: "Double-sided vanity mirror with faux leather case.", image: "images/mirror.jpg" },
+    { name: "Mini Handbag", price: 39.99, badge: "✨ Chic", desc: "Crossbody mini bag, soft vegan leather.", image: "images/handbag.jpg" },
+    { name: "Hair Claw Set", price: 6.99, badge: "⭐", desc: "2pcs pink marble claw clips.", image: "images/hairclaw.jpg" },
+    { name: "Lip Oil Keychain", price: 5.49, badge: "", desc: "Adorable lip-shaped keychain mirror.", image: "images/lipkey.jpg" },
+    { name: "Cozy Socks", price: 8.99, badge: "Cozy", desc: "Pink fluffy socks with heart grip.", image: "images/socks.jpg" },
+     { name: "Mini Handbag", price: 39.99, badge: "✨ Chic", desc: "Crossbody mini bag, soft vegan leather.", image: "images/ខ្នៀបតូច.jpg" },
+    { name: "Hair Claw Set", price: 6.99, badge: "⭐", desc: "2pcs pink marble claw clips.", image: "images/1.jpg" },
+    { name: "Lip Oil Keychain", price: 5.49, badge: "", desc: "Adorable lip-shaped keychain mirror.", image: "images/ក្រចក.jpg" },
+    { name: "Cozy Socks", price: 8.99, badge: "Cozy", desc: "Pink fluffy socks with heart grip.", image: "images/box.jpg" }
+
+  ];
+  
+  let cartItems = JSON.parse(localStorage.getItem('mini_cart') || '[]');
+  let currentDetailIndex = null;
+  let detailQty = 1;
+  let paymentBase64 = null;
+  let currentOrderTotal = 0;
+  let checkoutModal = null;
+  
+  // helper
+  const formatPrice = (val) => `$${val.toFixed(2)}`;
+  
+  function saveCart() {
+    localStorage.setItem('mini_cart', JSON.stringify(cartItems));
+    updateCartUI();
+  }
+  
+  function updateCartUI() {
+    const totalQty = cartItems.reduce((sum, i) => sum + i.qty, 0);
+    document.getElementById('globalCartCount').innerText = totalQty;
+    const subtotal = cartItems.reduce((s,i)=> s + (i.price * i.qty),0);
+    document.getElementById('cartSubtotalVal').innerText = formatPrice(subtotal);
+    document.getElementById('cartTotalVal').innerText = formatPrice(subtotal);
+    const container = document.getElementById('cartItemsList');
+    if (!cartItems.length) {
+      container.innerHTML = `<div class="text-center py-5"><i class="fas fa-heart-broken fa-3x text-muted"></i><p>Your bag is empty ♡</p></div>`;
+      document.getElementById('cartFooterSection').style.display = 'block';
+      return;
+    }
+    document.getElementById('cartFooterSection').style.display = 'block';
+    container.innerHTML = cartItems.map((item, idx) => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.image}" onerror="this.src='https://placehold.co/80x80/ffe0e8/ff80a5?text=mini'">
+        <div class="flex-grow-1"><div class="cart-item-name">${item.name}</div><div class="small">${formatPrice(item.price)}</div></div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="ci-qty-control"><button class="border-0 bg-transparent" onclick="modifyCartQty(${idx}, -1)">−</button><span class="mx-1">${item.qty}</span><button class="border-0 bg-transparent" onclick="modifyCartQty(${idx}, 1)">+</button></div>
+          <button class="btn btn-sm text-danger" onclick="removeCartItem(${idx})"><i class="fas fa-trash-alt"></i></button>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  function modifyCartQty(idx, delta) {
+    let newQty = cartItems[idx].qty + delta;
+    if (newQty < 1) return removeCartItem(idx);
+    cartItems[idx].qty = newQty;
+    saveCart();
+  }
+  function removeCartItem(idx) { cartItems.splice(idx,1); saveCart(); }
+  function addToCart(product, qty=1) {
+    const existing = cartItems.find(c => c.name === product.name);
+    if(existing) existing.qty += qty;
+    else cartItems.push({ ...product, qty: qty });
+    saveCart();
+    showToast(`${product.name} added 🎀`, 'success');
+  }
+  
+  function showToast(msg, type='info') { 
+    const toastDiv = document.createElement('div');
+    toastDiv.className = 'position-fixed bottom-0 end-0 m-3 bg-white rounded-pill shadow p-3 d-flex align-items-center gap-2 z-3';
+    toastDiv.style.zIndex=9999;
+    toastDiv.innerHTML = `<i class="fas fa-heart" style="color:#e85d8f"></i><span>${msg}</span>`;
+    document.body.appendChild(toastDiv);
+    setTimeout(()=>toastDiv.remove(),2000);
+  }
+  
+  function renderProductsGrid() {
+    const grid = document.getElementById('productGridContainer');
+    document.getElementById('productCountSpan').innerText = PRODUCTS.length;
+    grid.innerHTML = PRODUCTS.map((p, idx) => `
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card p-2" onclick="openDetailModal(${idx})">
+          <div class="product-img-wrap position-relative rounded-4">
+            <img src="${p.image}" alt="${p.name}" class="rounded-4 w-100" style="aspect-ratio:1/1; object-fit:cover;" onerror="this.src='https://placehold.co/300x300/ffccd5/ff80a5?text=mini'">
+            ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+          </div>
+          <div class="p-2">
+            <div class="product-name">${p.name}</div>
+            <div class="product-desc">${p.desc.substring(0,45)}</div>
+            <div class="product-price mt-1">${formatPrice(p.price)}</div>
+            <div class="d-flex gap-2 mt-2">
+              <button class="btn-detail-pink flex-fill rounded-pill" onclick="event.stopPropagation();openDetailModal(${idx})"><i class="far fa-eye"></i> View</button>
+              <button class="btn-add-pink flex-fill rounded-pill" onclick="event.stopPropagation();addToCart(PRODUCTS[${idx}],1)"><i class="fas fa-bag-shopping"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  function openDetailModal(idx) {
+    currentDetailIndex = idx; detailQty = 1;
+    const p = PRODUCTS[idx];
+    document.getElementById('detailImg').src = p.image;
+    document.getElementById('detailBadgeSpan').innerText = p.badge || 'New';
+    document.getElementById('detailName').innerText = p.name;
+    document.getElementById('detailPrice').innerHTML = formatPrice(p.price);
+    document.getElementById('detailDesc').innerText = p.desc;
+    document.getElementById('detailQtyNum').innerText = "1";
+    new bootstrap.Modal(document.getElementById('productDetailModal')).show();
+  }
+  function changeDetailQty(delta) { detailQty = Math.max(1, detailQty+delta); document.getElementById('detailQtyNum').innerText = detailQty; }
+  function addFromDetailToCart() { if(currentDetailIndex!==null) addToCart(PRODUCTS[currentDetailIndex], detailQty); bootstrap.Modal.getInstance(document.getElementById('productDetailModal')).hide(); }
+  
+  function toggleCartSidebar() {
+    document.getElementById('cartSidebarPink').classList.toggle('open');
+    document.getElementById('cartOverlayPink').classList.toggle('open');
+  }
+  
+  // CHECKOUT LOGIC
+  function openCheckoutModal() {
+    if(cartItems.length===0) { showToast('Cart is empty, add some goodies!','error'); return; }
+    toggleCartSidebar();
+    currentOrderTotal = cartItems.reduce((s,i)=> s + (i.price * i.qty),0);
+    const subtotal = currentOrderTotal;
+    
+    // Build table rows with No., Item Name, QTY, Unit Price, Total
+    const tableRows = cartItems.map((item, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td class="text-truncate" style="max-width: 120px;">${item.name}</td>
+        <td>${item.qty}</td>
+        <td>${formatPrice(item.price)}</td>
+        <td class="fw-bold" style="color: var(--pink-deep);">${formatPrice(item.price * item.qty)}</td>
+      </tr>
+    `).join('');
+    
+    document.getElementById('checkoutOrderItemsList').innerHTML = tableRows;
+    document.getElementById('checkoutSubtotalSpan').innerText = formatPrice(subtotal);
+    document.getElementById('checkoutTotalSpan').innerText = formatPrice(currentOrderTotal);
+    document.getElementById('qrAmountSpan').innerText = formatPrice(currentOrderTotal);
+    
+    resetCheckoutToStep1();
+    checkoutModal = new bootstrap.Modal(document.getElementById('checkoutMainModal'));
+    checkoutModal.show();
+  }
+  
+  function resetCheckoutToStep1() {
+    document.getElementById('checkoutStep1Panel').style.display = 'block';
+    document.getElementById('checkoutStep2Panel').style.display = 'none';
+    document.getElementById('checkoutStep3Panel').style.display = 'none';
+    document.getElementById('step1Badge').innerHTML = '<div class="rounded-circle bg-pink text-white mx-auto mb-1" style="width:34px; line-height:34px;">1</div><small>Details</small>';
+    document.getElementById('step2Badge').innerHTML = '<div class="rounded-circle bg-light text-dark mx-auto mb-1" style="width:34px; line-height:34px;">2</div><small>Pay/QR</small>';
+    document.getElementById('step3Badge').innerHTML = '<div class="rounded-circle bg-light text-dark mx-auto mb-1" style="width:34px; line-height:34px;">3</div><small>Receipt</small>';
+    paymentBase64 = null;
+    document.getElementById('paymentScreenshotInput').value = '';
+    document.getElementById('screenshotPreviewImg').style.display = 'none';
+  }
+  
+  function goToPaymentStep() {
+    const name = document.getElementById('custFullname').value.trim();
+    const phone = document.getElementById('custPhoneNum').value.trim();
+    const addr = document.getElementById('custAddressField').value.trim();
+    if(!name || !phone || !addr){ showToast('Please fill name, phone & address','error'); return; }
+    document.getElementById('checkoutStep1Panel').style.display = 'none';
+    document.getElementById('checkoutStep2Panel').style.display = 'block';
+    document.getElementById('step1Badge').innerHTML = '<div class="rounded-circle bg-success text-white mx-auto mb-1" style="width:34px; line-height:34px;">✓</div><small>Details</small>';
+    document.getElementById('step2Badge').innerHTML = '<div class="rounded-circle bg-pink text-white mx-auto mb-1" style="width:34px; line-height:34px;">2</div><small>Pay/QR</small>';
+    const qrImg = document.getElementById('qrCodeDynamic');
+    qrImg.src = "images/qr.png";
+    qrImg.onerror = () => { qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MiniAccessories%20Pay"; };
+  }
+  
+  function backToStep1() {
+    document.getElementById('checkoutStep2Panel').style.display = 'none';
+    document.getElementById('checkoutStep1Panel').style.display = 'block';
+    document.getElementById('step2Badge').innerHTML = '<div class="rounded-circle bg-light text-dark mx-auto mb-1" style="width:34px; line-height:34px;">2</div><small>Pay/QR</small>';
+    document.getElementById('step1Badge').innerHTML = '<div class="rounded-circle bg-pink text-white mx-auto mb-1" style="width:34px; line-height:34px;">1</div><small>Details</small>';
+  }
+  
+  function previewPaymentImage(input) {
+    if(input.files && input.files[0]){
+      const reader = new FileReader();
+      reader.onload = e => { paymentBase64 = e.target.result; document.getElementById('screenshotPreviewImg').src = e.target.result; document.getElementById('screenshotPreviewImg').style.display = 'block'; };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  
+  async function finalizeOrderAndSendToTelegram() {
+    if(!paymentBase64) { showToast('Please upload payment screenshot 💳','error'); return; }
+    const btn = document.getElementById('confirmOrderBtn');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Sending...'; btn.disabled=true;
+    const name = document.getElementById('custFullname').value.trim();
+    const phone = document.getElementById('custPhoneNum').value.trim();
+    const addr = document.getElementById('custAddressField').value.trim();
+    const email = document.getElementById('custEmailField').value.trim();
+    const note = document.getElementById('custNoteField').value.trim();
+    const orderId = 'MINI-' + Date.now().toString(36).toUpperCase();
+    
+    // Build formatted order summary for Telegram
+    let orderItemsText = "";
+    cartItems.forEach((item, idx) => {
+      orderItemsText += `${idx+1} | ${item.name} | ${item.qty} | ${formatPrice(item.price)} | ${formatPrice(item.price * item.qty)}\n`;
+    });
+    
+    const message = `🛍️ ORDER SUMMARY\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nNo. | Item Name | QTY | Unit Price | Total\n${orderItemsText}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSUBTOTAL: ${formatPrice(currentOrderTotal)}\nDELIVERY: FREE\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n✅ GRAND TOTAL: ${formatPrice(currentOrderTotal)}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n📦 Order ID: ${orderId}\n👤 Customer: ${name}\n📞 Phone: ${phone}\n📍 Address: ${addr}\n📧 Email: ${email || '-'}\n📝 Note: ${note || '-'}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n🌸 MINI Accessories\n📞 Support: @khemounshop_bot\n💖 Thank you for your order!\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+    
+    try {
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode:'HTML' }) });
+      const blob = await (await fetch(paymentBase64)).blob();
+      const formData = new FormData();
+      formData.append('chat_id', TELEGRAM_CHAT_ID);
+      formData.append('photo', blob, 'payment_screenshot.jpg');
+      formData.append('caption', `Order ${orderId} payment proof`);
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method:'POST', body: formData });
+      showToast('Order sent to shop! ✅', 'success');
+    } catch(e) { console.warn(e); showToast('Telegram error but order saved locally', 'info'); }
+    
+    // show receipt
+    const receiptHtml = `<div><strong>Order ID:</strong> ${orderId}</div><div><strong>Customer:</strong> ${name}, ${phone}</div><div><strong>Address:</strong> ${addr}</div><hr><div>${cartItems.map(i=>`<div>${i.name} x${i.qty} — ${formatPrice(i.price*i.qty)}</div>`).join('')}</div><div class="fw-bold mt-2">Total: ${formatPrice(currentOrderTotal)}</div><div class="small text-muted">Paid via QR screenshot ✅</div>`;
+    document.getElementById('receiptHtmlContent').innerHTML = receiptHtml;
+    document.getElementById('checkoutStep2Panel').style.display = 'none';
+    document.getElementById('checkoutStep3Panel').style.display = 'block';
+    document.getElementById('step2Badge').innerHTML = '<div class="rounded-circle bg-success text-white mx-auto mb-1" style="width:34px; line-height:34px;">✓</div><small>Pay/QR</small>';
+    document.getElementById('step3Badge').innerHTML = '<div class="rounded-circle bg-pink text-white mx-auto mb-1" style="width:34px; line-height:34px;">3</div><small>Receipt</small>';
+    btn.innerHTML = 'Confirm Order 💖'; btn.disabled=false;
+    localStorage.setItem('mini_last_order', JSON.stringify({orderId, items:cartItems, total:currentOrderTotal}));
+  }
+  
+  function finishCheckoutAndClearCart() {
+    cartItems = [];
+    saveCart();
+    if(checkoutModal) checkoutModal.hide();
+    resetCheckoutToStep1();
+    showToast('Thank you for shopping at Mini Accessories 💗','success');
+  }
+  
+  renderProductsGrid();
+  updateCartUI();
+</script>
+</body>
+</html>
